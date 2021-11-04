@@ -1,6 +1,7 @@
 package by.it.employeerestservice.util;
 
 import by.it.employeerestservice.entity.Employee;
+import by.it.employeerestservice.entity.Gender;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -15,7 +16,7 @@ public class EmployeeMapper implements RowMapper<Employee> {
                 .lastName(rs.getString("last_name"))
                 .departmentId(rs.getLong("department_id"))
                 .jobTitle(rs.getString("job_title"))
-                .gender(rs.getString("gender"))
+                .gender(Gender.valueOf(rs.getString("gender")))
                 .dateOfBirth(rs.getDate("date_of_birth"))
                 .build();
     }

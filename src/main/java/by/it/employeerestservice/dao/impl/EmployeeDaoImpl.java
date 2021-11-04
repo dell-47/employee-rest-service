@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import static by.it.employeerestservice.util.DaoQuery.*;
 
@@ -22,8 +23,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public Employee findById(Long id) {
-        return jdbcTemplate.queryForObject(FIND_BY_ID_QUERY, new EmployeeMapper(), id);
+    public Optional<Employee> findById(Long id) {
+        return Optional.ofNullable(jdbcTemplate.queryForObject(FIND_BY_ID_QUERY, new EmployeeMapper(), id));
     }
 
     @Override
@@ -39,7 +40,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 employee.getLastName(),
                 employee.getDepartmentId(),
                 employee.getJobTitle(),
-                employee.getGender(),
+                employee.getGender().name(),
                 employee.getDateOfBirth());
     }
 
@@ -50,7 +51,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 employee.getFirstName(),
                 employee.getLastName(),
                 employee.getDepartmentId(),
-                employee.getJobTitle(), employee.getGender(),
+                employee.getJobTitle(), employee.getGender().name(),
                 employee.getDateOfBirth(), employee.getId());
     }
 

@@ -2,6 +2,7 @@ package by.it.employeerestservice.service;
 
 import by.it.employeerestservice.dto.EmployeeResponseDto;
 import by.it.employeerestservice.entity.Employee;
+import by.it.employeerestservice.entity.Gender;
 
 import java.sql.Date;
 import java.util.Collections;
@@ -14,7 +15,7 @@ public class EmployeeServiceTestDataProvider {
     private static final String DEFAULT_FIRST_NAME = "FirstName";
     private static final String DEFAULT_LAST_NAME = "LastName";
     private static final String DEFAULT_JOB_TITLE = "Developer";
-    private static final String DEFAULT_GENDER = "MALE";
+    private static final Gender DEFAULT_GENDER = Gender.MALE;
     private static final Date DEFAULT_DATE_OF_BIRTH = new Date(946728000000L);
     public static final Long DEFAULT_DEPARTMENT_ID = 1L;
 

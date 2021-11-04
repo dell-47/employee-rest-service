@@ -20,7 +20,7 @@ public class Employee {
 
     private String jobTitle;
 
-    private String gender;
+    private Gender gender;
 
     private Date dateOfBirth;
 }

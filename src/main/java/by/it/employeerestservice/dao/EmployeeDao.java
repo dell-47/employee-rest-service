@@ -3,10 +3,11 @@ package by.it.employeerestservice.dao;
 import by.it.employeerestservice.entity.Employee;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EmployeeDao {
 
-    Employee findById(Long id);
+    Optional<Employee> findById(Long id);
 
     List<Employee> findAll();
 

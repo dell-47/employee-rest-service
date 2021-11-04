@@ -27,7 +27,7 @@ public class EmployeeServiceTest {
 
     @Test
     public void whenFindByValidId_thenEmployeeShouldBeFound() {
-        when(mockedEmployeeDao.findById(EXISTING_ID)).thenReturn(EXPECTED_EMPLOYEE);
+        when(mockedEmployeeDao.findById(EXISTING_ID)).thenReturn(java.util.Optional.ofNullable(EXPECTED_EMPLOYEE));
         EmployeeResponseDto found = employeeService.findById(EXISTING_ID);
         assertEquals(EXPECTED_EMPLOYEE_DTO, found);
     }

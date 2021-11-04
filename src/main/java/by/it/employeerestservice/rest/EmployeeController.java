@@ -22,33 +22,30 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping
-    public ResponseEntity<List<EmployeeResponseDto>> findAll() {
-        List<EmployeeResponseDto> employeeList = employeeService.findAll();
-        return new ResponseEntity<>(employeeList, HttpStatus.OK);
+    public List<EmployeeResponseDto> findAll() {
+        return employeeService.findAll();
     }
 
     @PostMapping
-    public ResponseEntity<?> addNew(@RequestBody EmployeeRequestDto employeeRequestDto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addNew(@RequestBody EmployeeRequestDto employeeRequestDto) {
         employeeService.addNew(employeeRequestDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EmployeeResponseDto> getById(@PathVariable Long id) {
-        EmployeeResponseDto employeeResponseDto = employeeService.findById(id);
-        return new ResponseEntity<>(employeeResponseDto, HttpStatus.OK);
+    public EmployeeResponseDto getById(@PathVariable Long id) {
+        return employeeService.findById(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody EmployeeRequestDto employeeRequestDto) {
+    public void update(@PathVariable Long id, @RequestBody EmployeeRequestDto employeeRequestDto) {
         employeeService.update(id, employeeRequestDto);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
         employeeService.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @ExceptionHandler(EmptyResultDataAccessException.class)

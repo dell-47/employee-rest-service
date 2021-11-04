@@ -1,6 +1,7 @@
 package by.it.employeerestservice.dto;
 
 import by.it.employeerestservice.entity.Employee;
+import by.it.employeerestservice.entity.Gender;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,7 +14,7 @@ public class EmployeeRequestDto {
     private String lastName;
     private Long departmentId;
     private String jobTitle;
-    private String gender;
+    private Gender gender;
     private Date dateOfBirth;
 
     public Employee getEmployeeFromDto() {

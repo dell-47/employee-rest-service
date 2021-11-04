@@ -5,6 +5,7 @@ import by.it.employeerestservice.dto.EmployeeRequestDto;
 import by.it.employeerestservice.dto.EmployeeResponseDto;
 import by.it.employeerestservice.entity.Employee;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class EmployeeService {
     private final EmployeeDaoImpl employeeDaoImpl;
 
     public EmployeeResponseDto findById(Long id) {
-        Employee employee = employeeDaoImpl.findById(id);
+        Employee employee = employeeDaoImpl.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
         return new EmployeeResponseDto(employee);
     }
 
