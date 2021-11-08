@@ -17,7 +17,7 @@ public class EmployeeResponseDto {
     private Long id;
     private String firstName;
     private String lastName;
-    private Long department;
+    private String department;
     private String jobTitle;
     private Gender gender;
     private Date dateOfBirth;
@@ -26,7 +26,7 @@ public class EmployeeResponseDto {
         this.id = employee.getId();
         this.firstName = employee.getFirstName();
         this.lastName = employee.getLastName();
-        this.department = employee.getDepartmentId();
+        this.department = employee.getDepartment().getTitle();
         this.jobTitle = employee.getJobTitle();
         this.gender = employee.getGender();
         this.dateOfBirth = employee.getDateOfBirth();

@@ -1,19 +1,11 @@
 package by.it.employeerestservice.dao;
 
 import by.it.employeerestservice.entity.Employee;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface EmployeeDao {
 
-    Optional<Employee> findById(Long id);
-
-    List<Employee> findAll();
-
-    int save(Employee employee);
-
-    int update(Employee employee);
-
-    int deleteById(Long id);
+public interface EmployeeDao extends JpaRepository<Employee, Long> {
+    List<Employee> findByLastNameContaining(String lastName);
 }

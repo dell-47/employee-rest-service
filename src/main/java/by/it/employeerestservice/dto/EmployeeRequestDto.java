@@ -21,7 +21,6 @@ public class EmployeeRequestDto {
         Employee employee = new Employee();
         employee.setFirstName(firstName);
         employee.setLastName(lastName);
-        employee.setDepartmentId(departmentId);
         employee.setJobTitle(jobTitle);
         employee.setGender(gender);
         employee.setDateOfBirth(dateOfBirth);
