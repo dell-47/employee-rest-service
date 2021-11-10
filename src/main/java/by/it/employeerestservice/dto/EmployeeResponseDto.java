@@ -2,6 +2,7 @@ package by.it.employeerestservice.dto;
 
 import by.it.employeerestservice.entity.Employee;
 import by.it.employeerestservice.entity.Gender;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +14,7 @@ import java.sql.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Employee DTO to response")
 public class EmployeeResponseDto {
     private Long id;
     private String firstName;

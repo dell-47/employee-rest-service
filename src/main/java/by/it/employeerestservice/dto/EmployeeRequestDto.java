@@ -2,6 +2,7 @@ package by.it.employeerestservice.dto;
 
 import by.it.employeerestservice.entity.Employee;
 import by.it.employeerestservice.entity.Gender;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
@@ -9,6 +10,7 @@ import java.sql.Date;
 
 @Data
 @Builder
+@Schema(description = "Employee DTO to request")
 public class EmployeeRequestDto {
     private String firstName;
     private String lastName;
