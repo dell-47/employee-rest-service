@@ -9,7 +9,7 @@ import java.util.Date;
 @RestControllerAdvice
 public class RestExceptionHandler {
 
-    @ExceptionHandler(ServiceException.class)
+    @ExceptionHandler(ServiceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ServiceExceptionMessage notFoundException(Exception ex, WebRequest request) {
         return new ServiceExceptionMessage(

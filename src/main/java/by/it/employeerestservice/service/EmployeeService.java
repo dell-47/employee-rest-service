@@ -6,8 +6,10 @@ import by.it.employeerestservice.dto.EmployeeRequestDto;
 import by.it.employeerestservice.dto.EmployeeResponseDto;
 import by.it.employeerestservice.entity.Department;
 import by.it.employeerestservice.entity.Employee;
-import by.it.employeerestservice.exception.ServiceException;
+import by.it.employeerestservice.exception.ServiceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,10 +20,14 @@ import java.util.stream.Collectors;
 public class EmployeeService {
     private final EmployeeDao employeeDao;
     private final DepartmentDao departmentDao;
+    private final static Logger LOG = LoggerFactory.getLogger(EmployeeService.class);
 
     public EmployeeResponseDto findById(Long id) {
         Employee employee = employeeDao.findById(id)
-                .orElseThrow(() -> new ServiceException("Employee with id=" + id + " not found"));
+                .orElseThrow(() -> {
+                    LOG.warn("Employee not found [id = {}]", id);
+                    return new ServiceNotFoundException("Employee with id=" + id + " not found");
+                });
         return new EmployeeResponseDto(employee);
     }
 
@@ -29,17 +35,23 @@ public class EmployeeService {
         Employee employee = employeeRequestDto.getEmployeeFromDto();
         Long departmentId = employeeRequestDto.getDepartmentId();
         Department department = departmentDao.findById(departmentId)
-                .orElseThrow(() -> new ServiceException("Department with id=" + departmentId + " not found"));
+                .orElseThrow(() -> {
+                    LOG.warn("Department not found [id = {}]", departmentId);
+                    return new ServiceNotFoundException("Department with id=" + departmentId + " not found");
+                });
         employee.setDepartment(department);
         Employee savedEmployee = employeeDao.save(employee);
         return new EmployeeResponseDto(savedEmployee);
     }
 
     public EmployeeResponseDto update(Long id, EmployeeRequestDto employeeRequestDto) {
-        Employee employee = employeeRequestDto.getEmployeeFromDto();
         Long departmentId = employeeRequestDto.getDepartmentId();
+        Employee employee = employeeRequestDto.getEmployeeFromDto();
         Department department = departmentDao.findById(departmentId)
-                .orElseThrow(() -> new ServiceException("Department with id=" + departmentId + " not found"));
+                .orElseThrow(() -> {
+                    LOG.warn("Department not found [id = {}]", departmentId);
+                    return new ServiceNotFoundException("Department with id=" + departmentId + " not found");
+                });
         employee.setDepartment(department);
         employee.setId(id);
         Employee updatedEmployee = employeeDao.save(employee);
