@@ -2,6 +2,7 @@ package by.it.employeerestservice.dto;
 
 import by.it.employeerestservice.entity.Employee;
 import by.it.employeerestservice.entity.Gender;
+import by.it.employeerestservice.validation.AgeValid;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +18,8 @@ public class EmployeeRequestDto {
     private Long departmentId;
     private String jobTitle;
     private Gender gender;
+
+    @AgeValid
     private Date dateOfBirth;
 
     public Employee getEmployeeFromDto() {

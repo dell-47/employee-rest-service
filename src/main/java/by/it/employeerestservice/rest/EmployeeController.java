@@ -9,8 +9,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +39,7 @@ public class EmployeeController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Add new employee")
-    public void addNew(@RequestBody EmployeeRequestDto employeeRequestDto) {
+    public void addNew(@Valid @RequestBody EmployeeRequestDto employeeRequestDto) {
         employeeService.addNew(employeeRequestDto);
     }
 
