@@ -6,10 +6,8 @@ import by.it.employeerestservice.dto.EmployeeRequestDto;
 import by.it.employeerestservice.dto.EmployeeResponseDto;
 import by.it.employeerestservice.entity.Department;
 import by.it.employeerestservice.entity.Employee;
-import by.it.employeerestservice.exception.ServiceNotFoundException;
+import by.it.employeerestservice.exception.EmployeeServiceNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,14 +18,10 @@ import java.util.stream.Collectors;
 public class EmployeeService {
     private final EmployeeDao employeeDao;
     private final DepartmentDao departmentDao;
-    private final static Logger LOG = LoggerFactory.getLogger(EmployeeService.class);
 
     public EmployeeResponseDto findById(Long id) {
         Employee employee = employeeDao.findById(id)
-                .orElseThrow(() -> {
-                    LOG.warn("Employee not found [id = {}]", id);
-                    return new ServiceNotFoundException("Employee with id=" + id + " not found");
-                });
+                .orElseThrow(() -> new EmployeeServiceNotFoundException("Employee not found [id = " + id + "]"));
         return new EmployeeResponseDto(employee);
     }
 
@@ -35,10 +29,7 @@ public class EmployeeService {
         Employee employee = employeeRequestDto.getEmployeeFromDto();
         Long departmentId = employeeRequestDto.getDepartmentId();
         Department department = departmentDao.findById(departmentId)
-                .orElseThrow(() -> {
-                    LOG.warn("Department not found [id = {}]", departmentId);
-                    return new ServiceNotFoundException("Department with id=" + departmentId + " not found");
-                });
+                .orElseThrow(() -> new EmployeeServiceNotFoundException("Department not found [id = " + departmentId + "]"));
         employee.setDepartment(department);
         Employee savedEmployee = employeeDao.save(employee);
         return new EmployeeResponseDto(savedEmployee);
@@ -48,10 +39,7 @@ public class EmployeeService {
         Long departmentId = employeeRequestDto.getDepartmentId();
         Employee employee = employeeRequestDto.getEmployeeFromDto();
         Department department = departmentDao.findById(departmentId)
-                .orElseThrow(() -> {
-                    LOG.warn("Department not found [id = {}]", departmentId);
-                    return new ServiceNotFoundException("Department with id=" + departmentId + " not found");
-                });
+                .orElseThrow(() -> new EmployeeServiceNotFoundException("Department not found [id = " + departmentId + "]"));
         employee.setDepartment(department);
         employee.setId(id);
         Employee updatedEmployee = employeeDao.save(employee);
@@ -65,8 +53,8 @@ public class EmployeeService {
                 .collect(Collectors.toList());
     }
 
-    public List<EmployeeResponseDto> findByLastName(String lastName) {
-        return employeeDao.findByLastNameContaining(lastName)
+    public List<EmployeeResponseDto> findByFilters(String firstName, String lastName) {
+        return employeeDao.findByFirstNameContainsAndLastNameContains(firstName, lastName)
                 .stream()
                 .map(EmployeeResponseDto::new)
                 .collect(Collectors.toList());

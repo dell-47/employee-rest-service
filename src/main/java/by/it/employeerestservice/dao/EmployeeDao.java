@@ -7,5 +7,5 @@ import java.util.List;
 
 
 public interface EmployeeDao extends JpaRepository<Employee, Long> {
-    List<Employee> findByLastNameContaining(String lastName);
+    List<Employee> findByFirstNameContainsAndLastNameContains(String firstName, String lastName);
 }
