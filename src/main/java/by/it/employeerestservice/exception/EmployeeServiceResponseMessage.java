@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Builder
 @Data
-public class EmployeeServiceExceptionMessage {
+public class EmployeeServiceResponseMessage {
     private final Date timestamp;
     private final int status;
     private final String message;

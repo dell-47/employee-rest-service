@@ -7,12 +7,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 @Data
 @Builder
 @Schema(description = "Employee DTO to request")
-public class EmployeeRequestDto {
+public class EmployeeRequestDto implements Serializable {
+
     private String firstName;
     private String lastName;
     private Long departmentId;

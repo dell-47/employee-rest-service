@@ -2,6 +2,7 @@ package by.it.employeerestservice.rest;
 
 import by.it.employeerestservice.dto.EmployeeRequestDto;
 import by.it.employeerestservice.dto.EmployeeResponseDto;
+import by.it.employeerestservice.service.EmployeeJmsService;
 import by.it.employeerestservice.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -26,6 +27,7 @@ import java.util.List;
 public class EmployeeController {
 
     private final EmployeeService employeeService;
+    private final EmployeeJmsService employeeJmsService;
 
     @GetMapping
     @Operation(summary = "Get all employees or employee by last name",
@@ -49,6 +51,14 @@ public class EmployeeController {
         log.info("IN: addNew - [{}]", employeeRequestDto);
         employeeService.addNew(employeeRequestDto);
         log.info("OUT: addNew - [No params]");
+    }
+
+    @PostMapping("/jms")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void send(@Valid @RequestBody EmployeeRequestDto employeeRequestDto) {
+        log.info("IN: send - [{}]", employeeRequestDto);
+        employeeJmsService.send(employeeRequestDto);
+        log.info("OUT: send - [No params]");
     }
 
     @GetMapping("/{id}")
